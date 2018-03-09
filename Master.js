@@ -133,25 +133,28 @@ function runFox (queryURL) {
   
   
   function makeCard (title, description, img, link, logo) {
-    console.log("image " + img);
     var one = $("<div>").addClass("col s12 m4").attr("id","columnOne")
-    var two = $("<img>").attr("src", "assets/images/" + logo)
-    var three = '<div class="card">'
-                +'<div class="card-image">'
-                +'<img src=' + img + '>'
-                +'<span class="card-title">' + title + '</span>'
-                +'<a href= "' + link + '" target="_blank" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">arrow_forward</i></a>'
-                +'</div>'
-                +'<div class="card-content">'
-                +'<p>' + description + '</p>'
-                +'</div>'
-                +'</div>'
-    $('img').error(function(){
+    var two = $("<img>").attr("src", "assets/images/" + logo);
+    let thumbnail = $("<img>").attr("src", img);
+    var three = $('<div class="card">'
+                    +'<div class="card-image">'
+                        +'<span class="card-title">' + title + '</span>'
+                        +'<a href= "' + link + '" target="_blank" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">arrow_forward</i></a>'
+                    +'</div>'
+                    +'<div class="card-content">'
+                        +'<p>' + description + '</p>'
+                    +'</div>'
+                +'</div>')
+
+    $(thumbnail).on('error', function(err){
+        this.onerror = null;
         $(this).attr('src', 'assets/images/noImage.jpg');
     });
-    $("#newsRow").append(one);
+
+    three.children('.card-image').prepend(thumbnail);
     one.append(two, three);
-  }
+    $("#newsRow").append(one);
+    }
 
 $("#searchButton").on("click", function (event) {
 
@@ -173,3 +176,4 @@ $("#searchButton").on("click", function (event) {
  });
 
 });
+
