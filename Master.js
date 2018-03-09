@@ -1,25 +1,16 @@
 $(document).ready(function(){
 
-    // var nytImage;
+// NEW YORK TIMES ===========================================================================================    
 
-    // var nytDescription;
-
-    // var nytTitle;
-
-    // var webUrl;
-
+// New York Times Authorization Key
 var authKeyNYT = "8b2443cf7edc4be4b55a691a14699bd0";
 
-// Search Parameters
-var queryTerm = "";
-var numResults = 0;
-var startYear = 0;
-var endYear = 0;
-
-// URL Base
+// URL Base for New York Times
 var queryURLBaseNYT = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + authKeyNYT + "&q=";
-console.log("this is url: " + queryURLBaseNYT);
 
+    console.log("this is url: " + queryURLBaseNYT);
+
+    // New York Times API Call
     function runNYT(queryTest) {
 
         // AJAX Function
@@ -31,10 +22,6 @@ console.log("this is url: " + queryURLBaseNYT);
             console.log("this is nydata", NYTData);
 
             var nytImage = "https://www.nytimes.com/" + NYTData.response.docs[1].multimedia[1].url;
-    
-            // var nytImage = "https://www.nytimes.com/" + NYTData.response.docs[1].multimedia[1].url;
-
-            // makeACard.makeACardNYT(NYTData)
 
             var nytDescription = NYTData.response.docs[1].snippet;
 
@@ -44,25 +31,25 @@ console.log("this is url: " + queryURLBaseNYT);
 
             var nytLogo = "nyt_logo.png";
 
+            // Run in the makeCard function, the following inputs set above
             makeCard(nytTitle, nytDescription, nytImage, nytURL, nytLogo);
 
         });
 
     };
 
+// CNN ===========================================================================================    
+
+// News API key that works with CNN and Fox
 var authKey = "7227db0863104fd7b602754dfdc975ef";
-// These variables will hold the results we get from the user's inputs via HTML
-var searchTerm = "";
-var numResults = 0;
-var startYear = 0;
-var endYear = 0;
+
 // queryURLBase is the start of our API endpoint. The searchTerm will be appended to this when
-// the user hits the search button
 var queryURLBase = "https://newsapi.org/v2/everything?apiKey=" +
     authKey + "&q=";
 console.log(queryURLBase);
 // Counter to keep track of article numbers as they come in
 var articleCounter = 0;
+
 // FUNCTIONS
 // ==========================================================
 // This runQuery function expects two parameters:
@@ -92,11 +79,13 @@ function runQuery(queryURL) {
 
             var cnnLogo = "cnn_logo.jpg";
 
+            // Run in the makeCard function, the following inputs set above
             makeCard(cnnTitle, cnnDescription, cnnImage, cnnURL, cnnLogo);
         
     });
 }
 
+// FOX ===========================================================================================
 
 function runFox (queryURL) {
 
@@ -124,14 +113,17 @@ function runFox (queryURL) {
         var foxURL = newsData.articles[0].url;
         var foxLogo = "fox_logo.png";
         console.log("this is fox " + foxImage);
+
+        // Delete the // before the URL if it has it and add "https://"
         foxImage = foxImage.replace(/^\/\//,'https://');
-  
+        
+        // Run in the makeCard function, the following inputs set above
         makeCard(foxTitle, foxDescription, foxImage, foxURL, foxLogo);
     });
   
   }
   
-  
+  // Create the cards with each news source for the user to see
   function makeCard (title, description, img, link, logo) {
     var one = $("<div>").addClass("col s12 m4").attr("id","columnOne")
     var two = $("<img>").attr("src", "assets/images/" + logo);
@@ -146,16 +138,19 @@ function runFox (queryURL) {
                     +'</div>'
                 +'</div>')
 
+    // Respond to errors when no image is present by displaying a placeholder image            
     $(thumbnail).on('error', function(err){
         this.onerror = null;
         $(this).attr('src', 'assets/images/noImage.jpg');
     });
 
+    // Append the proper information to the card
     three.children('.card-image').prepend(thumbnail);
     one.append(two, three);
     $("#newsRow").append(one);
     }
 
+// Activate the search term to populate the API function search terms when clicked on
 $("#searchButton").on("click", function (event) {
 
     event.preventDefault();
@@ -170,6 +165,7 @@ $("#searchButton").on("click", function (event) {
  
     console.log("search URL test: " + searchURL);
  
+    // Call the APIs to run again passing through the proper search terms
     runFox(searchURLF);
     runQuery(searchURLC);
     runNYT(queryTest);
