@@ -39,15 +39,33 @@ h4 {
 	overflow: hidden; 
 }
 
-span.card-title{
-	margin-left:20px;
-	margin-right:20px;
-	text-align: center;
-}
 
 .card{
 	height:500px;
 }
+
+.titleMargin {
+	margin-left: 24px;
+	margin-top: 20px;
+	margin-right: 10px;
+}
+
+.material-icons {
+	background-color: #555;
+}
+
+#styleRow{
+	margin-left: 70px;
+	margin-top: -8px;
+}
+
+#oldSearch{
+	margin-right:5px;
+}
+
+
+
+
 
 
 @media only screen and (max-width: 600px) {
