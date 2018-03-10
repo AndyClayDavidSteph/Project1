@@ -202,7 +202,7 @@ $(document).ready(function(){
         
      });
 
-
+// Firebase =================================================================================================
  var config = {
     apiKey: "AIzaSyAEfh4yrqhOl7kZMICEKGS2rh1yllroSPw",
     authDomain: "project1-3912c.firebaseapp.com",
@@ -216,7 +216,7 @@ $(document).ready(function(){
   
   var database = firebase.database();
   
-  // 2. Button for search Button
+  // Button for search Button
   $("#searchButton").on("click", function(event) {
     event.preventDefault();
   
@@ -225,17 +225,18 @@ $(document).ready(function(){
 
     var search = {
         search: search,
-      
      };
 
+     // Push into the database what the search item was
       database.ref().push(search);
 
+      // Clear the search value
       $("#first_name").val("");
 
     });
 
+    // Pull back from the database the 10 last values stored
     database.ref().limitToLast(10).on("child_added", function(childSnapshot) {
-
         console.log(childSnapshot.val());
       
         // Store everything into a variable.
@@ -245,6 +246,7 @@ $(document).ready(function(){
         $("#dataDump").append("<button id='oldSearch'>" + search + "</button>");
       });
 
+      // Run on click for firebase terms to then re-populate cards for the user to see
       $("#dataDump").on("click", "button", function (event) {
 
         event.preventDefault();
@@ -252,7 +254,6 @@ $(document).ready(function(){
         // searchTerm = $("#oldSearch").val().trim();
         var searchTerm = $(this).text();
 
-        alert("You want " + searchTerm)
         var searchURL = queryURLBase + searchTerm;
         
         var queryTest = queryURLBaseNYT + searchTerm;
