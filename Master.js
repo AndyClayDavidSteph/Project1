@@ -83,7 +83,7 @@ function runQuery(queryURL) {
 
             var cnnURL = newsData.articles[0].url;
 
-            var cnnLogo = "cnn_logo.jpg";
+            var cnnLogo = "cnn_logo.png";
 
             // Run in the makeCard function, the following inputs set above
             makeCard(cnnTitle, cnnDescription, cnnImage, cnnURL, cnnLogo);
