@@ -60,6 +60,9 @@ var articleCounter = 0;
 // ==========================================================
 // This runQuery function expects two parameters:
 // (the number of articles to show and the final URL to download data from)
+
+
+//RUNNIG CNN
 function runQuery(queryURL) {
     // The AJAX function uses the queryURL and GETS the JSON data associated with it.
     // The data then gets stored in the variable called: "newsData"
@@ -83,7 +86,8 @@ function runQuery(queryURL) {
 
             var cnnURL = newsData.articles[0].url;
 
-            var cnnLogo = "cnn_logo.jpg";
+            var cnnLogo = newsData.articles[0].source.id + ".png";
+            console.log("Logo TEST: " + cnnLogo);
 
             // Run in the makeCard function, the following inputs set above
             makeCard(cnnTitle, cnnDescription, cnnImage, cnnURL, cnnLogo);
@@ -168,11 +172,16 @@ $("#searchButton").on("click", function (event) {
  
     searchTerm = $("#first_name").val().trim();
     var searchURL = queryURLBase + searchTerm;
+
+    var newsSource = $('input[name=newsGroup]:checked').val();
+    console.log("this is the news source 1test: "+ newsSource);
+    
+
     
     var queryTest = queryURLBaseNYT + searchTerm;
  
     searchURLF = searchURL + "&sources=" + "fox-news";
-    searchURLC = searchURL + "&sources=" + "cnn";
+    searchURLC = searchURL + "&sources=" + newsSource;
  
     console.log("search URL test: " + searchURL);
  
