@@ -202,6 +202,7 @@ $(document).ready(function(){
         
      });
 
+
  var config = {
     apiKey: "AIzaSyAEfh4yrqhOl7kZMICEKGS2rh1yllroSPw",
     authDomain: "project1-3912c.firebaseapp.com",
@@ -224,7 +225,8 @@ $(document).ready(function(){
 
     var search = {
         search: search,
-      };
+      
+     };
 
       database.ref().push(search);
 
@@ -268,4 +270,6 @@ $(document).ready(function(){
      });
 
 });
+
+
 

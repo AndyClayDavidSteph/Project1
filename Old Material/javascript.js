@@ -105,7 +105,24 @@ function runQuery(numArticles, queryURL) {
             console.log(newsData.articles[i].publishedAt);
             console.log(newsData.articles[i].source.name);
             console.log(newsData.articles[i].url);
-        }
+
+
+            
+                var one = $("<div>").addClass("col s12 m4").attr("id", "columnOne")
+                var two = $("<img>").attr("src", "assets/images/fox_logo.png")
+                var three = '<div class="card">'
+                    + '<div class="card-image">'
+                    + '<img src=' + newsData.articles[i].urlToImage + '>'
+                    + '<span class="card-title">' + ewsData.articles[i].source.name + '</span>'
+                    + '<a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">arrow_forward</i></a>'
+                    + '</div>'
+                    + '<div class="card-content">'
+                    + '<p>' + newsData.articles[i].description + '</p>'
+                    + '</div>'
+                    + '</div>'
+                $("#newsRow").append(one);
+                one.append(two, three);
+            }
     });
 
 }
@@ -164,16 +181,3 @@ $("#clear-all").on("click", function () {
     articleCounter = 0;
     $("#well-section").empty();
 });
-
-var testurl = "http://svcs.ebay.com/services/search/FindingService/v1";
-testurl += "?OPERATION-NAME=findItemsByKeywords";
-testurl += "&SERVICE-VERSION=1.0.0";
-testurl += "&SECURITY-APPNAME=MyAppID";
-testurl += "&GLOBAL-ID=EBAY-US";
-testurl += "&RESPONSE-DATA-FORMAT=JSON";
-testurl += "&callback=_cb_findItemsByKeywords";
-testurl += "&REST-PAYLOAD";
-testurl += "&keywords=harry%20potter";
-testurl += "&paginationInput.entriesPerPage=3";
-
-console.log("ULR: " + testurl);
