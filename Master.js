@@ -63,6 +63,9 @@ console.log(queryURLBase);
 // ==========================================================
 // This runQuery function expects two parameters:
 // (the number of articles to show and the final URL to download data from)
+
+
+//RUNNIG CNN
 function runQuery(queryURL) {
     // The AJAX function uses the queryURL and GETS the JSON data associated with it.
     // The data then gets stored in the variable called: "newsData"
@@ -87,7 +90,8 @@ function runQuery(queryURL) {
 
             var cnnURL = newsData.articles[i].url;
 
-            var cnnLogo = "cnn_logo.png";
+            var cnnLogo = newsData.articles[i].source.id + ".png";
+            console.log("Logo TEST: " + cnnLogo);
 
             // Run in the makeCard function, the following inputs set above
             makeCard(cnnTitle, cnnDescription, cnnImage, cnnURL, cnnLogo);
@@ -167,7 +171,7 @@ function runFox (queryURL) {
     // Append the proper information to the card
     three.children('.card-image').prepend(thumbnail);
     one.append(two, three);
-    $("#newsRow").append(one);
+    $("#newsRow").prepend(one);
     }
 
 // Activate the search term to populate the API function search terms when clicked on
@@ -177,11 +181,16 @@ $("#searchButton").on("click", function (event) {
  
     searchTerm = $("#first_name").val().trim();
     var searchURL = queryURLBase + searchTerm;
+
+    var newsSource = $('input[name=newsGroup]:checked').val();
+    console.log("this is the news source 1test: "+ newsSource);
+    
+
     
     var queryTest = queryURLBaseNYT + searchTerm;
  
     searchURLF = searchURL + "&sources=" + "fox-news";
-    searchURLC = searchURL + "&sources=" + "cnn";
+    searchURLC = searchURL + "&sources=" + newsSource;
  
     console.log("search URL test: " + searchURL);
  
@@ -191,6 +200,7 @@ $("#searchButton").on("click", function (event) {
     runNYT(queryTest);
     
  });
+
 
  var config = {
     apiKey: "AIzaSyAEfh4yrqhOl7kZMICEKGS2rh1yllroSPw",
@@ -214,7 +224,8 @@ $("#searchButton").on("click", function (event) {
 
     var search = {
         search: search,
-      };
+      
+     };
 
       database.ref().push(search);
 
@@ -257,4 +268,6 @@ $("#searchButton").on("click", function (event) {
     //   });
 
 });
+
+
 
