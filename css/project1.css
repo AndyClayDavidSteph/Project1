@@ -34,9 +34,20 @@ h4 {
     opacity: 0.5;
 }
 
+.crop-height {
+    max-height: 200px;
+	overflow: hidden; 
+}
 
+span.card-title{
+	margin-left:20px;
+	margin-right:20px;
+	text-align: center;
+}
 
-
+.card{
+	height:500px;
+}
 
 
 @media only screen and (max-width: 600px) {
@@ -61,10 +72,5 @@ h4 {
 	 margin-right: 40px;
 	 float: right;
 	}
-
-
-
-
-
 
 }

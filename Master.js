@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+var articleCount = 3;
+
 // NEW YORK TIMES ===========================================================================================    
 
 // New York Times Authorization Key
@@ -19,26 +21,29 @@ var queryURLBaseNYT = "https://api.nytimes.com/svc/search/v2/articlesearch.json?
         method: "GET"
         }).then(function(NYTData) {
 
+          for (var i = 1; i <= articleCount; i++){
             console.log("this is nydata", NYTData);
 
-            var multimedia = NYTData.response.docs[1].multimedia[1];
+            var multimedia = NYTData.response.docs[i].multimedia[i];
 
             if (multimedia && multimedia.url) {
-                var nytImage = "https://www.nytimes.com/" + NYTData.response.docs[1].multimedia[1].url;
+                var nytImage = "https://www.nytimes.com/" + NYTData.response.docs[i].multimedia[i].url;
             } else {
                 var nytImage = "assets/images/noImage.jpg";
             };
 
-            var nytDescription = NYTData.response.docs[1].snippet;
+            var nytDescription = NYTData.response.docs[i].snippet;
 
-            var nytTitle = NYTData.response.docs[1].headline.main;
+            var nytTitle = NYTData.response.docs[i].headline.main;
 
-            var nytURL = NYTData.response.docs[1].web_url;
+            var nytURL = NYTData.response.docs[i].web_url;
 
             var nytLogo = "nyt_logo.png";
+            
 
             // Run in the makeCard function, the following inputs set above
             makeCard(nytTitle, nytDescription, nytImage, nytURL, nytLogo);
+        };
 
         });
 
@@ -53,8 +58,6 @@ var authKey = "7227db0863104fd7b602754dfdc975ef";
 var queryURLBase = "https://newsapi.org/v2/everything?apiKey=" +
     authKey + "&q=";
 console.log(queryURLBase);
-// Counter to keep track of article numbers as they come in
-var articleCounter = 0;
 
 // FUNCTIONS
 // ==========================================================
@@ -75,18 +78,20 @@ function runQuery(queryURL) {
         console.log(newsData);
         console.log("------------------------------------");
 
-            var cnnImage = newsData.articles[0].urlToImage;
+            for (var i = 1; i <= articleCount; i++){
+            var cnnImage = newsData.articles[i].urlToImage;
 
-            var cnnTitle = newsData.articles[0].title;
+            var cnnTitle = newsData.articles[i].title;
 
-            var cnnDescription = newsData.articles[0].description;
+            var cnnDescription = newsData.articles[i].description;
 
-            var cnnURL = newsData.articles[0].url;
+            var cnnURL = newsData.articles[i].url;
 
             var cnnLogo = "cnn_logo.png";
 
             // Run in the makeCard function, the following inputs set above
             makeCard(cnnTitle, cnnDescription, cnnImage, cnnURL, cnnLogo);
+            }
         
     });
 }
@@ -112,12 +117,13 @@ function runFox (queryURL) {
         console.log(newsData.articles[0].url);
         console.log(newsData.articles[0].title);
   
-  
-        var foxImage = newsData.articles[0].urlToImage;
-        var foxTitle = newsData.articles[0].title;
-        var foxDescription = newsData.articles[0].description;
-        var foxURL = newsData.articles[0].url;
+        for (var i = 1; i <= articleCount; i++){
+        var foxImage = newsData.articles[i].urlToImage;
+        var foxTitle = newsData.articles[i].title;
+        var foxDescription = newsData.articles[i].description;
+        var foxURL = newsData.articles[i].url;
         var foxLogo = "fox_logo.png";
+        
         console.log("this is fox " + foxImage);
 
         // Delete the // before the URL if it has it and add "https://"
@@ -125,6 +131,7 @@ function runFox (queryURL) {
         
         // Run in the makeCard function, the following inputs set above
         makeCard(foxTitle, foxDescription, foxImage, foxURL, foxLogo);
+        };
     });
   
   }
@@ -140,7 +147,9 @@ function runFox (queryURL) {
     var two = $("<img>").attr("src", "assets/images/" + logo);
     let thumbnail = $("<img>").attr("src", img);
     var three = $('<div class="card">'
-                    +'<div class="card-image">'
+                    +'<div class="card-image crop-height">'
+                    +'</div>'
+                    +'<div>'
                         +'<span class="card-title">' + title + '</span>'
                         +'<a href= "' + link + '" target="_blank" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">arrow_forward</i></a>'
                     +'</div>'
@@ -180,6 +189,7 @@ $("#searchButton").on("click", function (event) {
     runFox(searchURLF);
     runQuery(searchURLC);
     runNYT(queryTest);
+    
  });
 
 });
