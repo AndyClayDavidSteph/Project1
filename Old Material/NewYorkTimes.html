@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+
+</head>
+<body>
+    <script>
+
+var authKey = "8b2443cf7edc4be4b55a691a14699bd0";
+
+// Search Parameters
+var queryTerm = "";
+var numResults = 0;
+var startYear = 0;
+var endYear = 0;
+
+// URL Base
+var queryURLBase = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + authKey;
+
+function runQuery(numArticles, queryURL) {
+
+// AJAX Function
+$.ajax({
+  url: queryURL,
+  method: "GET"
+}).then(function(NYTData) {
+
+  // Logging to Console
+  console.log("------------------");
+  console.log(queryURL);
+  console.log("------------------");
+  console.log("number of articles" + numArticles);
+  console.log(NYTData);
+
+  for (var i = 0; i < numArticles; i++) {
+
+    // // Start Dumping to HTML Here
+    // var wellSection = $("<div>");
+    // wellSection.addClass("well");
+    // wellSection.attr("id", "article-well-" + i);
+    // $("#well-section").append(wellSection);
+    
+    var imageURL = "https://www.nytimes.com/" + NYTData.response.docs[i].multimedia[i].url;
+
+//     var image = $("<img>").attr("src", imageURL);
+
+//     // Attach the content to the appropriate well
+//     $("#article-well-" + i).append("<h5>" + NYTData.response.docs[i].section_name + "</h5>");
+//     $("#article-well-" + i).append("<h5>" + NYTData.response.docs[i].pub_date + "</h5>");
+//     $("#article-well-" + i).append(image);
+//     $("#article-well-" + i)
+//       .append(
+//         "<a href=" + NYTData.response.docs[i].web_url + ">" +
+//         NYTData.response.docs[i].web_url + "</a>"
+//       );
+      
+//       console.log(NYTData.response.docs[i].snippet);
+//       console.log(NYTData.response.docs[i].web_url);
+//       console.log(NYTData.response.docs[i].multimedia[i].url);
+//       console.log(NYTData.response.docs[i].headline.main);
+
+document.getElementById('time').innerHTML = 
+document.getElementById('time').innerHTML = 
+document.getElementById('time').innerHTML = 
+document.getElementById('time').innerHTML = 
+document.getElementById('time').innerHTML = 
+
+
+  }
+
+});
+
+}
+
+$("#searchButton").on("click", function(event) {
+  // This line allows us to take advantage of the HTML "submit" property
+  // This way we can hit enter on the keyboard and it registers the search
+  // (in addition to clicks).
+  event.preventDefault();
+
+  // Get Search Term
+  queryTerm = $("#searchField").val().trim();
+
+});
+
+    </script>
+</body>
+</html>

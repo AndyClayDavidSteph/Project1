@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery.js"></script>
+</head>
+<body>
+    <script>
+        var queryURL = "http://content.guardianapis.com/search?q=trump&api-key=935ba4f1-b601-456a-bd50-d64deea8a224";
+
+        $.ajax({
+          url: queryURL,
+          method: 'GET'
+        }).then(function(response) {
+          console.log(response);
+          console.log(response.results.webUrl);
+        });
+    </script>
+</body>
+</html>

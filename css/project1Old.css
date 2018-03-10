@@ -1,0 +1,18 @@
+h1 {
+	margin-left: 60px;
+	margin-right: 60px;
+}
+
+h4 {
+	margin-left: 66px;
+	margin-right: 66px;
+	font-size: 20pt;
+	margin-top: -20pt;
+	color: gray;
+
+}
+
+#searchField {
+		margin-left: 60px;
+		margin-top: -8px;
+}
