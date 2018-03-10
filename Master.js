@@ -192,5 +192,69 @@ $("#searchButton").on("click", function (event) {
     
  });
 
+ var config = {
+    apiKey: "AIzaSyAEfh4yrqhOl7kZMICEKGS2rh1yllroSPw",
+    authDomain: "project1-3912c.firebaseapp.com",
+    databaseURL: "https://project1-3912c.firebaseio.com",
+    projectId: "project1-3912c",
+    storageBucket: "",
+    messagingSenderId: "406225880569"
+  };
+
+  firebase.initializeApp(config);
+  
+  var database = firebase.database();
+  
+  // 2. Button for search Button
+  $("#searchButton").on("click", function(event) {
+    event.preventDefault();
+  
+    // Grabs user input
+    var search = $("#first_name").val().trim();
+
+    var search = {
+        search: search,
+      };
+
+      database.ref().push(search);
+
+      $("#first_name").val("");
+
+    });
+
+   
+    // database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+
+    //     console.log(childSnapshot.val());
+      
+    //     // Store everything into a variable.
+    //     var empName = childSnapshot.val().name;
+    //     var empRole = childSnapshot.val().role;
+    //     var empStart = childSnapshot.val().start;
+    //     var empRate = childSnapshot.val().rate;
+      
+    //     // Employee Info
+    //     console.log(empName);
+    //     console.log(empRole);
+    //     console.log(empStart);
+    //     console.log(empRate);
+      
+    //     // Prettify the employee start
+    //     var empStartPretty = moment.unix(empStart).format("MM/DD/YY");
+      
+    //     // Calculate the months worked using hardcore math
+    //     // To calculate the months worked
+    //     var empMonths = moment().diff(moment.unix(empStart, "X"), "months");
+    //     console.log(empMonths);
+      
+    //     // Calculate the total billed rate
+    //     var empBilled = empMonths * empRate;
+    //     console.log(empBilled);
+      
+    //     // Add each train's data into the table
+    //     $("#employee-table > tbody").append("<tr><td>" + empName + "</td><td>" + empRole + "</td><td>" +
+    //     empStartPretty + "</td><td>" + empMonths + "</td><td>" + empRate + "</td><td>" + empBilled + "</td></tr>");
+    //   });
+
 });
 
