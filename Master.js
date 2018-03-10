@@ -21,7 +21,13 @@ var queryURLBaseNYT = "https://api.nytimes.com/svc/search/v2/articlesearch.json?
 
             console.log("this is nydata", NYTData);
 
-            var nytImage = "https://www.nytimes.com/" + NYTData.response.docs[1].multimedia[1].url;
+            var multimedia = NYTData.response.docs[1].multimedia[1];
+
+            if (multimedia && multimedia.url) {
+                var nytImage = "https://www.nytimes.com/" + NYTData.response.docs[1].multimedia[1].url;
+            } else {
+                var nytImage = "assets/images/noImage.jpg";
+            };
 
             var nytDescription = NYTData.response.docs[1].snippet;
 
@@ -125,6 +131,11 @@ function runFox (queryURL) {
   
   // Create the cards with each news source for the user to see
   function makeCard (title, description, img, link, logo) {
+    
+    if (!img){
+        img = "assets/images/noImage.jpg";
+    };
+    
     var one = $("<div>").addClass("col s12 m4").attr("id","columnOne")
     var two = $("<img>").attr("src", "assets/images/" + logo);
     let thumbnail = $("<img>").attr("src", img);
