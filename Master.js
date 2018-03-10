@@ -176,18 +176,20 @@ $(document).ready(function(){
     
     // Activate the search term to populate the API function search terms when clicked on
     $("#searchButton").on("click", function (event) {
-    
-         $("#newsRow").empty();
+        
+        // Empty existing query to allow for a new one
+        $("#newsRow").empty();
+
+        // Prevent page from refreshing upon search button click
         event.preventDefault();
      
+        // Grab the search term value
         searchTerm = $("#first_name").val().trim();
         var searchURL = queryURLBase + searchTerm;
     
         var newsSource = $('input[name=newsGroup]:checked').val();
         console.log("this is the news source 1test: "+ newsSource);
-        
     
-        
         var queryTest = queryURLBaseNYT + searchTerm;
      
         searchURLF = searchURL + "&sources=" + "fox-news";
@@ -212,12 +214,17 @@ $(document).ready(function(){
     messagingSenderId: "406225880569"
   };
 
+
+  // Standard firebase configuration
   firebase.initializeApp(config);
   
+  // Set database variable 
   var database = firebase.database();
   
-  // Button for search Button
+  // On click button search function
   $("#searchButton").on("click", function(event) {
+    
+    // Prevent page from refreshing upon button click
     event.preventDefault();
   
     // Grabs user input
@@ -248,7 +255,11 @@ $(document).ready(function(){
 
       // Run on click for firebase terms to then re-populate cards for the user to see
       $("#dataDump").on("click", "button", function (event) {
+        
+        // Empty the news div to clear for next query
+        $("#newsRow").empty();
 
+        // Prevent page from refreshing upon button click
         event.preventDefault();
      
         // searchTerm = $("#oldSearch").val().trim();
