@@ -1,207 +1,210 @@
 $(document).ready(function(){
 
-var articleCount = 3;
-
-// NEW YORK TIMES ===========================================================================================    
-
-// New York Times Authorization Key
-var authKeyNYT = "8b2443cf7edc4be4b55a691a14699bd0";
-
-// URL Base for New York Times
-var queryURLBaseNYT = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + authKeyNYT + "&q=";
-
-    console.log("this is url: " + queryURLBaseNYT);
-
-    // New York Times API Call
-    function runNYT(queryTest) {
-
-        // AJAX Function
-        $.ajax({
-        url: queryTest,
-        method: "GET"
-        }).then(function(NYTData) {
-
-          for (var i = 1; i <= articleCount; i++){
-            console.log("this is nydata", NYTData);
-
-            var multimedia = NYTData.response.docs[i].multimedia[i];
-
-            if (multimedia && multimedia.url) {
-                var nytImage = "https://www.nytimes.com/" + NYTData.response.docs[i].multimedia[i].url;
-            } else {
-                var nytImage = "assets/images/noImage.jpg";
+    var articleCount = 3;
+    
+    // NEW YORK TIMES ===========================================================================================    
+    
+    // New York Times Authorization Key
+    var authKeyNYT = "8b2443cf7edc4be4b55a691a14699bd0";
+    
+    // URL Base for New York Times
+    var queryURLBaseNYT = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + authKeyNYT + "&q=";
+    
+        console.log("this is url: " + queryURLBaseNYT);
+    
+        // New York Times API Call
+        function runNYT(queryTest) {
+    
+            // AJAX Function
+            $.ajax({
+            url: queryTest,
+            method: "GET"
+            }).then(function(NYTData) {
+    
+              for (var i = 1; i <= articleCount; i++){
+                console.log("this is nydata", NYTData);
+    
+                var multimedia = NYTData.response.docs[i].multimedia[i];
+    
+                if (multimedia && multimedia.url) {
+                    var nytImage = "https://www.nytimes.com/" + NYTData.response.docs[i].multimedia[i].url;
+                } else {
+                    var nytImage = "assets/images/noImage.jpg";
+                };
+    
+                var nytDescription = NYTData.response.docs[i].snippet;
+    
+                var nytTitle = NYTData.response.docs[i].headline.main;
+    
+                var nytURL = NYTData.response.docs[i].web_url;
+    
+                var nytLogo = "nyt_logo.png";
+                
+    
+                // Run in the makeCard function, the following inputs set above
+                makeCard(nytTitle, nytDescription, nytImage, nytURL, nytLogo);
             };
-
-            var nytDescription = NYTData.response.docs[i].snippet;
-
-            var nytTitle = NYTData.response.docs[i].headline.main;
-
-            var nytURL = NYTData.response.docs[i].web_url;
-
-            var nytLogo = "nyt_logo.png";
+    
+            });
+    
+        };
+    
+    // CNN ===========================================================================================    
+    
+    // News API key that works with CNN and Fox
+    var authKey = "7227db0863104fd7b602754dfdc975ef";
+    
+    // queryURLBase is the start of our API endpoint. The searchTerm will be appended to this when
+    var queryURLBase = "https://newsapi.org/v2/everything?apiKey=" +
+        authKey + "&q=";
+    console.log(queryURLBase);
+    
+    // FUNCTIONS
+    // ==========================================================
+    // This runQuery function expects two parameters:
+    // (the number of articles to show and the final URL to download data from)
+    
+    
+    //RUNNIG CNN
+    function runQuery(queryURL) {
+        // The AJAX function uses the queryURL and GETS the JSON data associated with it.
+        // The data then gets stored in the variable called: "newsData"
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (newsData) {
+            // Logging the URL so we have access to it for troubleshooting
+            console.log("------------------------------------");
+            console.log("URL: " + queryURL);
+            console.log("------------------------------------");
+            // Log the newsData to console, where it will show up as an object
+            console.log(newsData);
+            console.log("------------------------------------");
+    
+                for (var i = 1; i <= articleCount; i++){
+                var cnnImage = newsData.articles[i].urlToImage;
+    
+                var cnnTitle = newsData.articles[i].title;
+    
+                var cnnDescription = newsData.articles[i].description;
+    
+                var cnnURL = newsData.articles[i].url;
+    
+                var cnnLogo = newsData.articles[i].source.id + ".png";
+                console.log("Logo TEST: " + cnnLogo);
+    
+                // Run in the makeCard function, the following inputs set above
+                makeCard(cnnTitle, cnnDescription, cnnImage, cnnURL, cnnLogo);
+                }
             
-
-            // Run in the makeCard function, the following inputs set above
-            makeCard(nytTitle, nytDescription, nytImage, nytURL, nytLogo);
-        };
-
         });
-
-    };
-
-// CNN ===========================================================================================    
-
-// News API key that works with CNN and Fox
-var authKey = "7227db0863104fd7b602754dfdc975ef";
-
-// queryURLBase is the start of our API endpoint. The searchTerm will be appended to this when
-var queryURLBase = "https://newsapi.org/v2/everything?apiKey=" +
-    authKey + "&q=";
-console.log(queryURLBase);
-
-// FUNCTIONS
-// ==========================================================
-// This runQuery function expects two parameters:
-// (the number of articles to show and the final URL to download data from)
-
-
-//RUNNIG CNN
-function runQuery(queryURL) {
-    // The AJAX function uses the queryURL and GETS the JSON data associated with it.
-    // The data then gets stored in the variable called: "newsData"
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function (newsData) {
-        // Logging the URL so we have access to it for troubleshooting
-        console.log("------------------------------------");
-        console.log("URL: " + queryURL);
-        console.log("------------------------------------");
-        // Log the newsData to console, where it will show up as an object
-        console.log(newsData);
-        console.log("------------------------------------");
-
-            for (var i = 1; i <= articleCount; i++){
-            var cnnImage = newsData.articles[i].urlToImage;
-
-            var cnnTitle = newsData.articles[i].title;
-
-            var cnnDescription = newsData.articles[i].description;
-
-            var cnnURL = newsData.articles[i].url;
-
-            var cnnLogo = newsData.articles[i].source.id + ".png";
-            console.log("Logo TEST: " + cnnLogo);
-
-            // Run in the makeCard function, the following inputs set above
-            makeCard(cnnTitle, cnnDescription, cnnImage, cnnURL, cnnLogo);
-            }
-        
-    });
-}
-
-// FOX ===========================================================================================
-
-function runFox (queryURL) {
-
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function (newsData) {
-  
-        console.log("------------------------------------");
-        console.log("URL: " + queryURL);
-        console.log("------------------------------------");
-  
-        console.log(newsData);
-        console.log("------------------------------------");
-  
-        console.log(newsData.articles[0].publishedAt);
-        console.log(newsData.articles[0].source.name);
-        console.log(newsData.articles[0].url);
-        console.log(newsData.articles[0].title);
-  
-        for (var i = 1; i <= articleCount; i++){
-        var foxImage = newsData.articles[i].urlToImage;
-        var foxTitle = newsData.articles[i].title;
-        var foxDescription = newsData.articles[i].description;
-        var foxURL = newsData.articles[i].url;
-        var foxLogo = "fox_logo.png";
-        
-        console.log("this is fox " + foxImage);
-
-        // Delete the // before the URL if it has it and add "https://"
-        foxImage = foxImage.replace(/^\/\//,'https://');
-        
-        // Run in the makeCard function, the following inputs set above
-        makeCard(foxTitle, foxDescription, foxImage, foxURL, foxLogo);
-        };
-    });
-  
-  }
-  
-  // Create the cards with each news source for the user to see
-  function makeCard (title, description, img, link, logo) {
-    
-    if (!img){
-        img = "assets/images/noImage.jpg";
-    };
-    
-    var one = $("<div>").addClass("col s12 m4").attr("id","columnOne")
-    var two = $("<img>").attr("src", "assets/images/" + logo);
-    let thumbnail = $("<img>").attr("src", img);
-    var three = $('<div class="card">'
-                    +'<div class="card-image crop-height">'
-                    +'</div>'
-                    +'<div>'
-                        +'<span class="card-title">' + title + '</span>'
-                        +'<a href= "' + link + '" target="_blank" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">arrow_forward</i></a>'
-                    +'</div>'
-                    +'<div class="card-content">'
-                        +'<p>' + description + '</p>'
-                    +'</div>'
-                +'</div>')
-
-    // Respond to errors when no image is present by displaying a placeholder image            
-    $(thumbnail).on('error', function(err){
-        this.onerror = null;
-        $(this).attr('src', 'assets/images/noImage.jpg');
-    });
-
-    // Append the proper information to the card
-    three.children('.card-image').prepend(thumbnail);
-    one.append(two, three);
-    $("#newsRow").prepend(one);
     }
-
-// Activate the search term to populate the API function search terms when clicked on
-$("#searchButton").on("click", function (event) {
-
-    event.preventDefault();
- 
-    searchTerm = $("#first_name").val().trim();
-    var searchURL = queryURLBase + searchTerm;
-
-    var newsSource = $('input[name=newsGroup]:checked').val();
-    console.log("this is the news source 1test: "+ newsSource);
     
-
+    // FOX ===========================================================================================
     
-    var queryTest = queryURLBaseNYT + searchTerm;
- 
-    searchURLF = searchURL + "&sources=" + "fox-news";
-    searchURLC = searchURL + "&sources=" + newsSource;
- 
-    console.log("search URL test: " + searchURL);
- 
-    // Call the APIs to run again passing through the proper search terms
-    runFox(searchURLF);
-    runQuery(searchURLC);
-    runNYT(queryTest);
+    function runFox (queryURL) {
     
- });
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (newsData) {
+      
+            console.log("------------------------------------");
+            console.log("URL: " + queryURL);
+            console.log("------------------------------------");
+      
+            console.log(newsData);
+            console.log("------------------------------------");
+      
+            console.log(newsData.articles[0].publishedAt);
+            console.log(newsData.articles[0].source.name);
+            console.log(newsData.articles[0].url);
+            console.log(newsData.articles[0].title);
+      
+            for (var i = 1; i <= articleCount; i++){
+            var foxImage = newsData.articles[i].urlToImage;
+            var foxTitle = newsData.articles[i].title;
+            var foxDescription = newsData.articles[i].description;
+            var foxURL = newsData.articles[i].url;
+            var foxLogo = "fox.png";
+            
+            console.log("this is fox " + foxImage);
+    
+            // Delete the // before the URL if it has it and add "https://"
+            foxImage = foxImage.replace(/^\/\//,'https://');
+            
+            // Run in the makeCard function, the following inputs set above
+            makeCard(foxTitle, foxDescription, foxImage, foxURL, foxLogo);
+            };
+        });
+      
+      }
+      
+      // Create the cards with each news source for the user to see
+      function makeCard (title, description, img, link, logo) {
+        
+        if (!img){
+            img = "assets/images/noImage.jpg";
+        };
+        
+        var one = $("<div>").addClass("col s12 m4").attr("id","columnOne")
+        var two = $("<img>").attr("src", "assets/images/" + logo);
+        let thumbnail = $("<img>").attr("src", img);
+        var three = $('<div class="card">'
+                        +'<div class="card-image crop-height">'
+                        +'</div>'
+                        +'<div class="titleMargin">'
+                            +'<span class="card-title">' + title + '</span>'
+                            +'<a href= "' + link + '" target="_blank" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">arrow_forward</i></a>'
+                        +'</div>'
+                        +'<div class="card-content">'
+                            +'<p>' + description + '</p>'
+                        +'</div>'
+                    +'</div>')
+    
+        // Respond to errors when no image is present by displaying a placeholder image            
+        $(thumbnail).on('error', function(err){
+            this.onerror = null;
+            $(this).attr('src', 'assets/images/noImage.jpg');
+        });
+    
+        // Append the proper information to the card
+        three.children('.card-image').prepend(thumbnail);
+        one.append(two, three);
+        $("#newsRow").prepend(one);
+        }
+    
+    // Activate the search term to populate the API function search terms when clicked on
+    $("#searchButton").on("click", function (event) {
+        
+        // Empty existing query to allow for a new one
+        $("#newsRow").empty();
 
+        // Prevent page from refreshing upon search button click
+        event.preventDefault();
+     
+        // Grab the search term value
+        searchTerm = $("#first_name").val().trim();
+        var searchURL = queryURLBase + searchTerm;
+    
+        var newsSource = $('input[name=newsGroup]:checked').val();
+        console.log("this is the news source 1test: "+ newsSource);
+    
+        var queryTest = queryURLBaseNYT + searchTerm;
+     
+        searchURLF = searchURL + "&sources=" + "fox-news";
+        searchURLC = searchURL + "&sources=" + newsSource;
+     
+        console.log("search URL test: " + searchURL);
+     
+        // Call the APIs to run again passing through the proper search terms
+        runFox(searchURLF);
+        runQuery(searchURLC);
+        runNYT(queryTest);
+        
+     });
 
+// Firebase =================================================================================================
  var config = {
     apiKey: "AIzaSyAEfh4yrqhOl7kZMICEKGS2rh1yllroSPw",
     authDomain: "project1-3912c.firebaseapp.com",
@@ -211,12 +214,17 @@ $("#searchButton").on("click", function (event) {
     messagingSenderId: "406225880569"
   };
 
+
+  // Standard firebase configuration
   firebase.initializeApp(config);
   
+  // Set database variable 
   var database = firebase.database();
   
-  // 2. Button for search Button
+  // On click button search function
   $("#searchButton").on("click", function(event) {
+    
+    // Prevent page from refreshing upon button click
     event.preventDefault();
   
     // Grabs user input
@@ -224,48 +232,54 @@ $("#searchButton").on("click", function (event) {
 
     var search = {
         search: search,
-      
      };
 
+     // Push into the database what the search item was
       database.ref().push(search);
 
+      // Clear the search value
       $("#first_name").val("");
 
     });
 
-   
-    // database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+    // Pull back from the database the 10 last values stored
+    database.ref().limitToLast(10).on("child_added", function(childSnapshot) {
+        console.log(childSnapshot.val());
+      
+        // Store everything into a variable.
+        var search = childSnapshot.val().search;
+  
+        // Add each train's data into the table
+        $("#dataDump").append("<button id='oldSearch'>" + search + "</button>");
+      });
 
-    //     console.log(childSnapshot.val());
-      
-    //     // Store everything into a variable.
-    //     var empName = childSnapshot.val().name;
-    //     var empRole = childSnapshot.val().role;
-    //     var empStart = childSnapshot.val().start;
-    //     var empRate = childSnapshot.val().rate;
-      
-    //     // Employee Info
-    //     console.log(empName);
-    //     console.log(empRole);
-    //     console.log(empStart);
-    //     console.log(empRate);
-      
-    //     // Prettify the employee start
-    //     var empStartPretty = moment.unix(empStart).format("MM/DD/YY");
-      
-    //     // Calculate the months worked using hardcore math
-    //     // To calculate the months worked
-    //     var empMonths = moment().diff(moment.unix(empStart, "X"), "months");
-    //     console.log(empMonths);
-      
-    //     // Calculate the total billed rate
-    //     var empBilled = empMonths * empRate;
-    //     console.log(empBilled);
-      
-    //     // Add each train's data into the table
-    //     $("#employee-table > tbody").append("<tr><td>" + empName + "</td><td>" + empRole + "</td><td>" +
-    //     empStartPretty + "</td><td>" + empMonths + "</td><td>" + empRate + "</td><td>" + empBilled + "</td></tr>");
-    //   });
+      // Run on click for firebase terms to then re-populate cards for the user to see
+      $("#dataDump").on("click", "button", function (event) {
+        
+        // Empty the news div to clear for next query
+        $("#newsRow").empty();
+
+        // Prevent page from refreshing upon button click
+        event.preventDefault();
+     
+        // searchTerm = $("#oldSearch").val().trim();
+        var searchTerm = $(this).text();
+
+        var searchURL = queryURLBase + searchTerm;
+        
+        var queryTest = queryURLBaseNYT + searchTerm;
+     
+        searchURLF = searchURL + "&sources=" + "fox-news";
+        searchURLC = searchURL + "&sources=" + "cnn";
+     
+        console.log("search URL test: " + searchURL);
+     
+        // Call the APIs to run again passing through the proper search terms
+        runFox(searchURLF);
+        runQuery(searchURLC);
+        runNYT(queryTest);
+        
+     });
 
 });
 
