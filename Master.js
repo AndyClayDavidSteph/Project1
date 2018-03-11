@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-var articleCount = 3;
+var articleCount = 2;
 
 // NEW YORK TIMES ===========================================================================================    
 
@@ -21,7 +21,7 @@ var queryURLBaseNYT = "https://api.nytimes.com/svc/search/v2/articlesearch.json?
         method: "GET"
         }).then(function(NYTData) {
 
-          for (var i = 1; i <= articleCount; i++){
+          for (var i = 0; i <= articleCount; i++){
             console.log("this is nydata", NYTData);
 
             var multimedia = NYTData.response.docs[i].multimedia[i];
@@ -81,7 +81,7 @@ function runQuery(queryURL) {
         console.log(newsData);
         console.log("------------------------------------");
 
-            for (var i = 1; i <= articleCount; i++){
+            for (var i = 0; i <= articleCount; i++){
             var cnnImage = newsData.articles[i].urlToImage;
 
             var cnnTitle = newsData.articles[i].title;
@@ -121,7 +121,7 @@ function runFox (queryURL) {
         console.log(newsData.articles[0].url);
         console.log(newsData.articles[0].title);
   
-        for (var i = 1; i <= articleCount; i++){
+        for (var i = 0; i <= articleCount; i++){
         var foxImage = newsData.articles[i].urlToImage;
         var foxTitle = newsData.articles[i].title;
         var foxDescription = newsData.articles[i].description;
