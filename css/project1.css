@@ -76,6 +76,20 @@ h4 {
 	padding-bottom: 40px;
 }
 
+#styleRow{
+	margin-left: 70px;
+	margin-top: -8px;
+}
+
+#oldSearch{
+	margin-right:5px;
+}
+
+#credits{
+	margin-top:40px;
+	text-align:center;
+}
+
 
 @media only screen and (max-width: 600px) {
 	h1 {
