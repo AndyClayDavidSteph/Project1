@@ -153,7 +153,7 @@ function runFox (queryURL) {
     var three = $('<div class="card">'
                     +'<div class="card-image crop-height">'
                     +'</div>'
-                    +'<div>'
+                    +'<div class="titleMargin">'
                         +'<span class="card-title">' + title + '</span>'
                         +'<a href= "' + link + '" target="_blank" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">arrow_forward</i></a>'
                     +'</div>'
@@ -177,6 +177,7 @@ function runFox (queryURL) {
 // Activate the search term to populate the API function search terms when clicked on
 $("#searchButton").on("click", function (event) {
 
+     $("#newsRow").empty();
     event.preventDefault();
  
     searchTerm = $("#first_name").val().trim();
