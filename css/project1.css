@@ -1,14 +1,14 @@
 h1 {
 	margin-left: 60px;
 	margin-right: 60px;
+	font-size: 50px;
 }
 
 h4 {
 	margin-left: 66px;
 	margin-right: 66px;
-	font-size: 20pt;
+	font-size: 18pt;
 	margin-top: -20pt;
-	color: gray;
 
 }
 
@@ -54,6 +54,28 @@ h4 {
 	background-color: #555;
 }
 
+#newsForm {
+	color: #666;
+	padding: 10px 0px 20px 70px;
+
+}
+
+.button-margin {
+	margin-right: 30px;
+}
+
+.headerText {
+	background-color: #233475;
+	color: white;
+	padding-top: 20px;
+}
+
+.subheaderText {
+	background-color: #233475;
+	color: white;
+	padding-bottom: 40px;
+}
+
 #styleRow{
 	margin-left: 70px;
 	margin-top: -8px;
@@ -91,5 +113,12 @@ h4 {
 	 margin-right: 40px;
 	 float: right;
 	}
+	#newsForm {
+	color: #666;
+	padding: 10px 0px 20px 20px;
+
+}
+
+
 
 }
