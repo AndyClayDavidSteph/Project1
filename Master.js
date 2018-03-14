@@ -260,11 +260,11 @@ $(document).ready(function () {
         var search = childSnapshot.val().search;
 
         // Add each train's data into the table
-        $("#dataDump").append("<button id='oldSearch'>" + search + "</button>");
+        $("#dataDump").append("<a class='waves-effect blue darken-1 btn' id='oldSearch'>" + search + "</a>");
     });
 
     // Run on click for firebase terms to then re-populate cards for the user to see
-    $("#dataDump").on("click", "button", function (event) {
+    $("#dataDump").on("click", "a", function (event) {
 
         // Empty the news div to clear for next query
         $("#newsRow").empty();
