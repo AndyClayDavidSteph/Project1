@@ -283,7 +283,6 @@ $(document).ready(function () {
         
         var array = [];
 
-<<<<<<< HEAD
         for (var term in searchTerms) {
             let obj = {
                 term: term,
@@ -319,10 +318,6 @@ $(document).ready(function () {
                 $("#dataDump").append("<a id='oldSearch'>" + array[i].term + "</a>");
             }
         }
-=======
-        // Add each train's data into the table
-        $("#dataDump").append("<a class='waves-effect blue darken-1 btn' id='oldSearch'>" + search + "</a>");
->>>>>>> 0897aaf9834130134ed45560a7b88e87f78b849f
     });
 
     // Run on click for firebase terms to then re-populate cards for the user to see
