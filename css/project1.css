@@ -2,6 +2,8 @@ h1 {
 	margin-left: 60px;
 	margin-right: 60px;
 	font-size: 50px;
+	padding-bottom: 10px;
+	padding-top: 20px;
 }
 
 h4 {
@@ -9,7 +11,28 @@ h4 {
 	margin-right: 66px;
 	font-size: 18pt;
 	margin-top: -20pt;
+	color: white;
+	padding-bottom: 70px;
+}
 
+h5 {
+	color: #666;
+	font-size: 16px;
+}
+
+label {
+	padding-right: 40px !important;
+	margin-left: 4px !important;
+}
+
+.column {
+    float: left;
+    width: 50%;
+}
+
+
+.inputStyle {
+	border: 2px solid #969696 !important;
 }
 
 #searchField {
@@ -41,7 +64,7 @@ h4 {
 
 
 .card{
-	height:500px;
+	height:600px;
 }
 
 .titleMargin {
@@ -64,17 +87,16 @@ h4 {
 	margin-right: 30px;
 }
 
+.backgroundImage {
+	background: url(https://www.clicktechtips.com/wp-content/uploads/2017/04/best-news-apps-for-android-users.jpg);	
+	box-shadow: inset 0 0 0 100vw rgba(35, 52, 117, 0.8);
+}
+
 .headerText {
-	background-color: #233475;
 	color: white;
 	padding-top: 20px;
 }
 
-.subheaderText {
-	background-color: #233475;
-	color: white;
-	padding-bottom: 40px;
-}
 
 #styleRow{
 	margin-left: 70px;
@@ -88,6 +110,14 @@ h4 {
 #credits{
 	margin-top:40px;
 	text-align:center;
+}
+
+#checkBoxes {
+	float: left;
+}
+
+#oldSearch {
+	margin-bottom: 6px;
 }
 
 
@@ -113,11 +143,20 @@ h4 {
 	 margin-right: 40px;
 	 float: right;
 	}
+
 	#newsForm {
 	color: #666;
 	padding: 10px 0px 20px 20px;
+	}
 
-}
+	.column {
+    width: 100%;
+	}
+
+	#styleRow {
+		margin-left: 24px;
+		margin-top: 40px;
+	}
 
 
 
