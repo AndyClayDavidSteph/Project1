@@ -326,47 +326,134 @@ $(document).ready(function () {
     // single example
     function getSentiment(articleText, appendScoreHere) {
         $.post(
-            'https://apiv2.indico.io/sentiment',
+            'https://apiv2.indico.io/apis/multiapi?apis=political,emotion',
             JSON.stringify({
                 'api_key': "99883d108820881bbdf367b594a55cf0",
                 'data': articleText,
             })
         ).then(function (res) {
 
-            console.log("Sentiment Score = " + res)
-            var articleSentiment = res + 1;
+            res = JSON.parse(res);
+            console.log(res);
+            console.log(res.results.emotion.results.anger);
+            console.log(res.results.emotion.results.joy);
+            console.log(res.results.emotion.results.sadness);
+            console.log(res.results.emotion.results.fear);
+            console.log(res.results.emotion.results.surprise);
 
-            var stripped = res.replace(/[^\d.-]/g, '')
-            console.log("Stripped: " + stripped);
+            var anger = res.results.emotion.results.anger;
+            var joy = res.results.emotion.results.joy;
+            var sadness = res.results.emotion.results.sadness;
+            var fear = res.results.emotion.results.fear;
+            var surprise = res.results.emotion.results.surprise;
 
-            if (stripped >= .90) {
-                console.log("Extremely Posive: " + stripped);
-                appendScoreHere.text("Extremely Positive Score = " + stripped);
-            } else if (stripped >= .80) {
-                console.log("Very Positive: " + stripped);
-                appendScoreHere.text("Very Positive Score = " + stripped);
-            } else if (stripped >= .70) {
-                console.log("Solidly Positive: " + stripped);
-                appendScoreHere.text("Solidly Positive Score = " + stripped);
-            } else if (stripped >= .60) {
-                console.log("Slightly Positive: " + stripped);
-                appendScoreHere.text("Slighty Positive Score = " + stripped);
-            } else if (stripped >= .40) {
-                console.log("Neutral: " + stripped);
-                appendScoreHere.text("Neutral Score = " + stripped);
-            } else if (stripped >= .30) {
-                console.log("Slightly Negative: " + stripped);
-                appendScoreHere.text("Slightly Negative Score = " + stripped);
-            } else if (stripped >= .20) {
-                console.log("Solidly Negative: " + stripped);
-                appendScoreHere.text("Solidly Negative Score = " + stripped);
-            } else if (stripped >= .10) {
-                console.log("Very Negative: " + stripped);
-                appendScoreHere.text("Very Negative Score = " + stripped);
+            if ( anger > joy && anger > sadness && anger > fear && anger > surprise) {
+                anger = (anger * 100);
+                anger = (anger.toFixed(2) + "%");
+                anger = "Anger " + anger; 
+                console.log("Anger is the greatest " + anger);
+                appendScoreHere.after($("<h6>").html("Strongest Emotion: " + anger.bold()));
+                
+            } else if (joy > anger && joy > sadness && joy > fear && joy > surprise) {
+                joy = (joy * 100);
+                joy = (joy.toFixed(2) + "%")
+                joy = "Joy " + joy;
+                console.log("Joy is the greatest " + joy);
+                appendScoreHere.after($("<h6>").html("Strongest Emotion: " + joy.bold()));
+            } else if (sadness > anger && sadness > joy && sadness > fear && sadness > surprise) {
+                sadness = (sadness * 100);
+                sadness = (sadness.toFixed(2) + "%");
+                sadness = "Sadness " + sadness;
+                console.log("Sadness is the greatest " + sadness);
+                appendScoreHere.after($("<h6>").html("Strongest Emotion: " + sadness.bold()));
+            } else if (fear > anger && fear > joy && fear > sadness && fear > surprise) {
+                fear = (fear * 100);
+                fear = (fear.toFixed(2) + "%");
+                fear = "Fear " + fear;
+                console.log("sadness is the greatest " + fear);
+                appendScoreHere.after($("<h6>").html("Strongest Emotion: " + fear.bold()));
             } else {
-                console.log("Extremely Negative: " + stripped);
-                appendScoreHere.text("Extremely Negative Score = " + stripped);
+                surprise = (surprise * 100);
+                surprise = (surprise.toFixed(2) + "%");
+                surprise = "Surprise " + surprise;
+                console.log("surpirse is the greatest: " + surprise);
+                appendScoreHere.after($("<h6>").html("Strongest Emotion: " + surprise.bold()));
             }
+
+            var libertarian =  res.results.political.results.Libertarian;
+            var green = res.results.political.results.Green;
+            var liberal =  res.results.political.results.Liberal;
+            var conservative =  res.results.political.results.Conservative;
+            
+            if (libertarian > green && libertarian > liberal && libertarian > conservative) {
+                libertarian = (libertarian * 100);
+                libertarian = (libertarian.toFixed(2) + "%");
+                libertarian =  "Libertarian " + libertarian;
+                console.log("libertarian is the greatest " + libertarian);
+                appendScoreHere.after($("<h6>").html("Strongest Political Ideology: " + libertarian.bold()));
+            } else if (green > libertarian && green > liberal && green > conservative) {
+                green = (green * 100);
+                green = (green.toFixed(2) + "%");
+                green = "Green " + green;
+                
+                console.log("Anger is the greatest " + green);
+                appendScoreHere.after($("<h6>").html("Strongest Political Ideology: " + green.bold()));
+            } else if (liberal > libertarian && liberal > green && liberal > conservative) {
+                liberal = (liberal * 100);
+                liberal = (liberal.toFixed(2) + "%");
+                liberal = "Liberal " + liberal;
+                console.log("Liberal is the greatest " + liberal);
+                appendScoreHere.after($("<h6>").html("Strongest Political Ideology: " + liberal.bold()));
+            } else {
+                conservative = (conservative * 100);
+                conservative = (conservative.toFixed(2) + "%");
+                conservative = "Conservative " + conservative; 
+                console.log("conservative is the greatest: " + conservative);
+                appendScoreHere.after($("<h6>").html("Strongest Political Ideology: " + conservative.bold()));
+            }
+
+
+            console.log(res.results.political.results.Libertarian);
+            console.log(res.results.political.results.Green);
+            console.log(res.results.political.results.Liberal);
+            console.log(res.results.political.results.Conservative);
+            
+            
+
+        //     console.log("Sentiment Score = " + res)
+        //     var articleSentiment = res + 1;
+
+        //     var stripped = res.replace(/[^\d.-]/g, '')
+        //     console.log("Stripped: " + stripped);
+
+        //     if (stripped >= .90) {
+        //         console.log("Extremely Posive: " + stripped);
+        //         appendScoreHere.text("Extremely Positive Score = " + stripped);
+        //     } else if (stripped >= .80) {
+        //         console.log("Very Positive: " + stripped);
+        //         appendScoreHere.text("Very Positive Score = " + stripped);
+        //     } else if (stripped >= .70) {
+        //         console.log("Solidly Positive: " + stripped);
+        //         appendScoreHere.text("Solidly Positive Score = " + stripped);
+        //     } else if (stripped >= .60) {
+        //         console.log("Slightly Positive: " + stripped);
+        //         appendScoreHere.text("Slighty Positive Score = " + stripped);
+        //     } else if (stripped >= .40) {
+        //         console.log("Neutral: " + stripped);
+        //         appendScoreHere.text("Neutral Score = " + stripped);
+        //     } else if (stripped >= .30) {
+        //         console.log("Slightly Negative: " + stripped);
+        //         appendScoreHere.text("Slightly Negative Score = " + stripped);
+        //     } else if (stripped >= .20) {
+        //         console.log("Solidly Negative: " + stripped);
+        //         appendScoreHere.text("Solidly Negative Score = " + stripped);
+        //     } else if (stripped >= .10) {
+        //         console.log("Very Negative: " + stripped);
+        //         appendScoreHere.text("Very Negative Score = " + stripped);
+        //     } else {
+        //         console.log("Extremely Negative: " + stripped);
+        //         appendScoreHere.text("Extremely Negative Score = " + stripped);
+        //     }
 
         });
     }
