@@ -233,12 +233,15 @@ $(document).ready(function () {
 
     // On click button search function
     $("#searchButton").on("click", function (event) {
-
         // Prevent page from refreshing upon button click
         event.preventDefault();
 
         // Grabs user input
         var search = $("#first_name").val().trim();
+
+        if (search === ""){
+            return;
+        }
 
         var search = {
             search: search,
@@ -253,14 +256,68 @@ $(document).ready(function () {
     });
 
     // Pull back from the database the 10 last values stored
-    database.ref().limitToLast(10).on("child_added", function (childSnapshot) {
-        console.log(childSnapshot.val());
+    // database.ref().limitToLast(10).on("child_added", function (childSnapshot) {
+    //     console.log(childSnapshot.val());
 
-        // Store everything into a variable.
-        var search = childSnapshot.val().search;
+    //     // Store everything into a variable.
+    //     var search = childSnapshot.val().search;
 
-        // Add each train's data into the table
-        $("#dataDump").append("<button id='oldSearch'>" + search + "</button>");
+    //     // Add each train's data into the table
+    //     $("#dataDump").append("<button id='oldSearch'>" + search + "</button>");
+    // });
+
+    database.ref().on("value",function(snapshot){
+        $("#dataDump").empty();
+        var data = snapshot.val();
+        // console.log(data);
+        var searchTerms = {};
+        
+        for (var key in data) {
+            var term = data[key].search.toLowerCase();
+            if (searchTerms[term] || searchTerms[term] === 0){
+                searchTerms[term] = searchTerms[term] + 1;
+            } else {
+                searchTerms[term] = 0;
+            }
+        };
+        
+        var array = [];
+
+        for (var term in searchTerms) {
+            let obj = {
+                term: term,
+                count : searchTerms[term]
+            };
+            array.push(obj);
+        }
+
+        array = array.sort(function(a, b) {
+            if (a.count < b.count) return 1;
+            if (a.count > b.count) return -1;   
+        });
+
+        console.log(array)
+
+        var length;
+        if (array.length > 10){
+            length = 10;
+        } else{
+            length = array.length -1;
+        };
+        for (var i =0; i <= length; i++){
+            if (array[i].count > 10){
+            $("#dataDump").append("<a id='oldSearch' style=background-color:red>" + array[i].term + "</a>");
+            }
+            if (array[i].count > 5){
+                $("#dataDump").append("<a id='oldSearch' style=background-color:blue>" + array[i].term + "</a>");
+            }
+            if (array[i].count > 2){
+                $("#dataDump").append("<a id='oldSearch' style=background-color:green>" + array[i].term + "</a>");
+            }
+            if (array[i].count > 0){
+                $("#dataDump").append("<a id='oldSearch'>" + array[i].term + "</a>");
+            }
+        }
     });
 
     // Run on click for firebase terms to then re-populate cards for the user to see
