@@ -14,66 +14,101 @@
     </head>
 
     <body>
-        <form action=“#” id=“newsForm”>
+          
+          <div class="row headerText backgroundImage">
+              <h1> Compare how NEWS reports the NEWS. </h1>
+              <h4> Search for anything to compare how its covered. </h4>
+          </div>
+          <form action="#" id="newsForm">
             <p>
+<<<<<<< HEAD
               Pick A news source before you search the news
             </p>
               <p>
               <input name="newsGroup" class= "radioSource" type="checkbox" id="cnn" value="cnn" />
+=======
+            &nbsp;Pick a news source before you search the news -
+            </p>
+          <div required="required" class="row">
+
+            <div id="checkBoxes">
+
+              <input name="newsGroup" class= "radioSource inputStyle" type="checkbox" id="cnn" value="cnn" />
+>>>>>>> 0897aaf9834130134ed45560a7b88e87f78b849f
               <label for="cnn">Cnn</label>
+
+              <br>
             
               <input name="newsGroup" class= "radioSource" type="checkbox" id="abc-news" value="abc-news" />
               <label for="abc-news">ABC News</label>
+
+              <br>
           
               <input name="newsGroup" class= "radioSource" type="checkbox" id="breitbart-news" value="breitbart-news"/>
               <label for="breitbart-news">Breitbart News</label>
+
+              <br>
             
               <input name="newsGroup" class= "radioSource" type="checkbox" id="the-huffington-post"  value="the-huffington-post"/>
               <label for="the-huffington-post">Huffington Post</label>
-
+            </div>
+            <div id="checkBoxes">
+            
               <input name="newsGroup" class= "radioSource" type="checkbox" id="bbc-news" value="bbc-news" />
               <label for="bbc-news">BBC News</label>
-
+              
+              <br>
+    
               <input name="newsGroup" class="radioSource" type="checkbox" id="fox-news" value="fox-news" />
               <label for="fox-news">Fox News</label>
+
+              <br>
 
               <input name="newsGroup" class="radioSource" type="checkbox" id="reuters" value="reuters" />
               <label for="reuters">Reuters</label>
 
+              <br>
+
               <input name="newsGroup" class="radioSource" type="checkbox" id="rt" value="rt" />
               <label for="rt">Russia Today</label>
-
+            </div>
+            <div id="checkBoxes">
+            
               <input name="newsGroup" class="radioSource" type="checkbox" id="newsweek" value="newsweek" />
               <label for="newsweek">NewsWeek</label>
+
+              <br>
 
               <input name="newsGroup" class="radioSource" type="checkbox" id="msnbc" value="msnbc" />
               <label for="msnbc">MSNBC</label>
 
+              <br>
+
               <input name="newsGroup" class="radioSource" type="checkbox" id="nyt" value="nyt" />
               <label for="nyt">New York Times</label>
+<<<<<<< HEAD
             </p>
+=======
+
+            </div>
+>>>>>>> 0897aaf9834130134ed45560a7b88e87f78b849f
           </form> 
+        </div>
 
-      <div class="row">
-          <h1> Compare how NEWS reports the NEWS. </h1>
-      </div>
-
-      <div class="row">
-          <h4> Search for anything to compare how its covered. </h4>
-      </div>
 
 <div class="row"></div>
       <!-- search -->
       <div class="row">
         <div class="input-field col xs12 col s4" id="searchField">
-          <input placeholder="Enter a search term" id="first_name" type="text" class="validate">
+          <label for="something" data-error="Please enter a search term"> </label>
+          <input placeholder="Enter a search term" required="required" id="first_name" type="text" class="validate">
           <!-- <label for="first_name">Search for news terms see how the media portrays them</label> -->
         </div>
-        <a class="waves-effect waves-light btn" id="searchButton">Search the News</a>
+        <a class="waves-effect blue darken-4 btn" id="searchButton">Search the News</a>
         </div>
 
 <div class="row" id="styleRow">
-  <div class="row"> <h5>See what others have searched!</h5>
+  <div class="row"> <h5>Most recent global search terms:</h5>
       <div class="row" id="dataDump">
       </div>
     </div>
