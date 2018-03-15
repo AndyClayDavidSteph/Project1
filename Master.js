@@ -156,7 +156,7 @@ $(document).ready(function () {
             + '</div>'
             + '<div class="card-content">'
             + '<p>' + description + '</p>'
-            + '<button id = "sentimentButton" data-name = "' + link +'"> Check Positivity Score </button>'
+            + '<button id="sentimentButton" data-name = "' + link +'"> Check Political and Emotional Value </button>'
             + '</div>'
             + '</div>')
 
@@ -364,6 +364,7 @@ $(document).ready(function () {
         $.ajax({
             url: queryURLBase,
             method: "GET"
+
         }).then(function (articleData) {
             // Logging the URL so we have access to it for troubleshooting
 
@@ -447,26 +448,26 @@ $(document).ready(function () {
                 libertarian = (libertarian.toFixed(2) + "%");
                 libertarian =  "Libertarian " + libertarian;
                 console.log("libertarian is the greatest " + libertarian);
-                appendScoreHere.after($("<h6>").html("Strongest Political Ideology: " + libertarian.bold()));
+                appendScoreHere.after($("<h6>").html("Political Ideology: " + libertarian.bold()));
             } else if (green > libertarian && green > liberal && green > conservative) {
                 green = (green * 100);
                 green = (green.toFixed(2) + "%");
                 green = "Green " + green;
                 
                 console.log("Anger is the greatest " + green);
-                appendScoreHere.after($("<h6>").html("Strongest Political Ideology: " + green.bold()));
+                appendScoreHere.after($("<h6>").html("Political Ideology: " + green.bold()));
             } else if (liberal > libertarian && liberal > green && liberal > conservative) {
                 liberal = (liberal * 100);
                 liberal = (liberal.toFixed(2) + "%");
                 liberal = "Liberal " + liberal;
                 console.log("Liberal is the greatest " + liberal);
-                appendScoreHere.after($("<h6>").html("Strongest Political Ideology: " + liberal.bold()));
+                appendScoreHere.after($("<h6>").html("Political Ideology: " + liberal.bold()));
             } else {
                 conservative = (conservative * 100);
                 conservative = (conservative.toFixed(2) + "%");
                 conservative = "Conservative " + conservative; 
                 console.log("conservative is the greatest: " + conservative);
-                appendScoreHere.after($("<h6>").html("Strongest Political Ideology: " + conservative.bold()));
+                appendScoreHere.after($("<h6>").html("Political Ideology: " + conservative.bold()));
             }
 
 
