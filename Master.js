@@ -156,7 +156,7 @@ $(document).ready(function () {
             + '</div>'
             + '<div class="card-content">'
             + '<p>' + description + '</p>'
-            + '<button id="sentimentButton" data-name = "' + link +'"> Check Political and Emotional Value </button>'
+            + '<button id="sentimentButton" data-name = "' + link +'"> Analyze Sentiment </button>'
             + '</div>'
             + '</div>')
 
