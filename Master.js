@@ -123,7 +123,7 @@ $(document).ready(function () {
                 var foxTitle = newsData.articles[i].title;
                 var foxDescription = newsData.articles[i].description;
                 var foxURL = newsData.articles[i].url;
-                var foxLogo = "fox-logo.png";
+                var foxLogo = "fox-news.png";
 
                 console.log("this is fox " + foxImage);
 
