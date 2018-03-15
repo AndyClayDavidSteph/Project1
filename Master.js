@@ -346,7 +346,11 @@ $(document).ready(function () {
     // grabbing the link, and running it through a couple API's to get the text and a "sentiment score"
     function scoreFunction() {
         
-       var appendScoreHere = $(this); 
+       var appendScoreHere = $(this);
+
+       var loadingImage = $('<div><img src="assets/images/loading.gif"></div>')
+       appendScoreHere.after(loadingImage)
+
        var urlToCheck =  $(this).attr("data-name");
        console.log("Score FUnction URL: " + urlToCheck);
 
@@ -362,6 +366,8 @@ $(document).ready(function () {
             method: "GET"
 
         }).then(function (articleData) {
+
+            loadingImage.remove()
             // Logging the URL so we have access to it for troubleshooting
 
             console.log("this is the URL in the AJAX function: " + queryURLBase);
