@@ -272,17 +272,20 @@ $(document).ready(function () {
         // console.log(data);
         var searchTerms = {};
         
+        // Search through the stored database search terms... if it exists, add +1 to it, otherwise, set it to 0
         for (var key in data) {
             var term = data[key].search.toLowerCase();
             if (searchTerms[term] || searchTerms[term] === 0){
                 searchTerms[term] = searchTerms[term] + 1;
             } else {
-                searchTerms[term] = 0;
+                searchTerms[term] = 1;
             }
         };
         
+        // Create an empty array
         var array = [];
 
+        // Create an object for the searchTerm that involves the term and its counter
         for (var term in searchTerms) {
             let obj = {
                 term: term,
@@ -291,6 +294,7 @@ $(document).ready(function () {
             array.push(obj);
         }
 
+        // Actually sort through the array pushing the highest value in front
         array = array.sort(function(a, b) {
             if (a.count < b.count) return 1;
             if (a.count > b.count) return -1;   
@@ -298,26 +302,18 @@ $(document).ready(function () {
 
         console.log(array)
 
+        // Return 10 values from the array
         var length;
         if (array.length > 10){
             length = 10;
         } else{
             length = array.length -1;
         };
+        
+        // Store 10 values or less from the array in the array[i].term and color code it accordingly
         for (var i =0; i <= length; i++){
-            if (array[i].count > 10){
-            $("#dataDump").append("<a id='oldSearch' style=background-color:red>" + array[i].term + "</a>");
-            }
-            if (array[i].count > 5){
-                $("#dataDump").append("<a id='oldSearch' style=background-color:blue>" + array[i].term + "</a>");
-            }
-            if (array[i].count > 2){
-                $("#dataDump").append("<a id='oldSearch' style=background-color:green>" + array[i].term + "</a>");
-            }
-            if (array[i].count > 0){
-                $("#dataDump").append("<a id='oldSearch'>" + array[i].term + "</a>");
-            }
-        }
+            $("#dataDump").append("<a id='oldSearch'>" + array[i].term + " (" + array[i].count + ") |" + "</a>");
+        };
     });
 
     // Run on click for firebase terms to then re-populate cards for the user to see
@@ -381,7 +377,7 @@ $(document).ready(function () {
         });
     }
 
-    // single example
+    // Sentiment and policital analysis pulled from an API
     function getSentiment(articleText, appendScoreHere) {
         $.post(
             'https://apiv2.indico.io/apis/multiapi?apis=political,emotion',
@@ -405,6 +401,7 @@ $(document).ready(function () {
             var fear = res.results.emotion.results.fear;
             var surprise = res.results.emotion.results.surprise;
 
+            // Sentimental analysis
             if ( anger > joy && anger > sadness && anger > fear && anger > surprise) {
                 anger = (anger * 100);
                 anger = (anger.toFixed(2) + "%");
@@ -443,6 +440,7 @@ $(document).ready(function () {
             var liberal =  res.results.political.results.Liberal;
             var conservative =  res.results.political.results.Conservative;
             
+            // Political analysis 
             if (libertarian > green && libertarian > liberal && libertarian > conservative) {
                 libertarian = (libertarian * 100);
                 libertarian = (libertarian.toFixed(2) + "%");
@@ -475,43 +473,6 @@ $(document).ready(function () {
             console.log(res.results.political.results.Green);
             console.log(res.results.political.results.Liberal);
             console.log(res.results.political.results.Conservative);
-            
-            
-
-        //     console.log("Sentiment Score = " + res)
-        //     var articleSentiment = res + 1;
-
-        //     var stripped = res.replace(/[^\d.-]/g, '')
-        //     console.log("Stripped: " + stripped);
-
-        //     if (stripped >= .90) {
-        //         console.log("Extremely Posive: " + stripped);
-        //         appendScoreHere.text("Extremely Positive Score = " + stripped);
-        //     } else if (stripped >= .80) {
-        //         console.log("Very Positive: " + stripped);
-        //         appendScoreHere.text("Very Positive Score = " + stripped);
-        //     } else if (stripped >= .70) {
-        //         console.log("Solidly Positive: " + stripped);
-        //         appendScoreHere.text("Solidly Positive Score = " + stripped);
-        //     } else if (stripped >= .60) {
-        //         console.log("Slightly Positive: " + stripped);
-        //         appendScoreHere.text("Slighty Positive Score = " + stripped);
-        //     } else if (stripped >= .40) {
-        //         console.log("Neutral: " + stripped);
-        //         appendScoreHere.text("Neutral Score = " + stripped);
-        //     } else if (stripped >= .30) {
-        //         console.log("Slightly Negative: " + stripped);
-        //         appendScoreHere.text("Slightly Negative Score = " + stripped);
-        //     } else if (stripped >= .20) {
-        //         console.log("Solidly Negative: " + stripped);
-        //         appendScoreHere.text("Solidly Negative Score = " + stripped);
-        //     } else if (stripped >= .10) {
-        //         console.log("Very Negative: " + stripped);
-        //         appendScoreHere.text("Very Negative Score = " + stripped);
-        //     } else {
-        //         console.log("Extremely Negative: " + stripped);
-        //         appendScoreHere.text("Extremely Negative Score = " + stripped);
-        //     }
 
         });
     }
